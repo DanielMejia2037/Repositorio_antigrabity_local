@@ -1,0 +1,24 @@
+# Gitleaks configuration
+[allowlist]
+description = "Allowlisted files and paths"
+paths = [
+    '''node_modules''',
+    '''package-lock.json''',
+    '''dist'''
+]
+
+[[rules]]
+description = "Generic API Key"
+id = "generic-api-key"
+regex = '''(?i)(api_key|apikey|key|api-key|secret|token|password|pwd|auth|credential)[a-z0-9_.\-]*['\s]?[:=]['\s]?[a-z0-9_.\-]{16,128}'''
+keywords = ["key", "api", "token", "secret"]
+
+[[rules]]
+description = "AWS Access Key"
+id = "aws-access-key"
+regex = '''(A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}'''
+
+[[rules]]
+description = "GitHub Personal Access Token"
+id = "github-pat"
+regex = '''ghp_[a-zA-Z0-9]{36}'''
