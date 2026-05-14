@@ -8,7 +8,7 @@ RUN npm ci --frozen-lockfile
 
 # Copiar código fuente y compilar
 COPY . .
-RUN npm run build
+RUN npx vite build
 # Output en /app/dist
 
 # ── Stage 2: Runtime (Nginx) ─────────────────────────────────
