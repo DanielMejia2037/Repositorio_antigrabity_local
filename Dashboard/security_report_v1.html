@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Security Audit Report - flitsas.com.co</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        :root {
+            --primary: #2563eb;
+            --danger: #dc2626;
+            --success: #16a34a;
+            --warning: #ca8a04;
+            --bg: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: var(--bg);
+        }
+        .header {
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .agent-id {
+            background: #f3f4f6;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--muted);
+        }
+        h1 { font-size: 2rem; margin: 0; color: var(--primary); }
+        h2 { font-size: 1.5rem; margin-top: 2rem; border-left: 4px solid var(--primary); padding-left: 12px; }
+        .summary-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        .status-pill {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+        }
+        .status-fail { background: #fee2e2; color: var(--danger); }
+        .status-pass { background: #dcfce7; color: var(--success); }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #e5e7eb; }
+        th { background: #f9fafb; color: var(--muted); font-size: 0.75rem; text-transform: uppercase; }
+        
+        .log-section {
+            background: #111827;
+            color: #d1d5db;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+        .footer { margin-top: 50px; font-size: 0.75rem; color: var(--muted); text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>Security Audit Report</h1>
+            <p style="margin: 4px 0 0 0;">Target: <strong>flitsas.com.co</strong></p>
+        </div>
+        <div class="agent-id">Security Agent v1.0</div>
+    </div>
+
+    <div class="summary-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <span style="font-weight: 600;">Overall Security Status:</span>
+            <span class="status-pill status-fail">FAIL (Critical Findings)</span>
+        </div>
+        <p><strong>Data Classification:</strong> <span style="color: var(--danger);">Sensitive / PII</span></p>
+        <p>The audit identified significant infrastructure misconfigurations regarding HTTP security headers, despite maintaining a valid SSL/TLS certificate and a robust Privacy Policy (Habeas Data).</p>
+    </div>
+
+    <h2>1. Data Classification</h2>
+    <p><strong>Category:</strong> Sensible / PII (Colombia Ley 1581)</p>
+    <p><strong>Rationale:</strong> The platform processes biometric data, biographical information, and financial data related to traffic procedures and credit applications for NIT 901698038-3.</p>
+
+    <h2>2. Infrastructure & SSL/TLS</h2>
+    <table>
+        <tr><th>Metric</th><th>Status</th><th>Finding</th></tr>
+        <tr><td>SSL/TLS Certificate</td><td><span style="color: var(--success);">PASS</span></td><td>Active via Cloudflare. TLS 1.3 supported.</td></tr>
+        <tr><td>Protocol Support</td><td><span style="color: var(--success);">PASS</span></td><td>HTTPS enforced by gateway.</td></tr>
+    </table>
+
+    <h2>3. HTTP Security Headers</h2>
+    <table>
+        <tr><th>Header</th><th>Status</th><th>Finding / Recommendation</th></tr>
+        <tr><td>Strict-Transport-Security</td><td><span style="color: var(--danger);">FAIL</span></td><td>Missing. Risk of protocol downgrade attacks (MITM).</td></tr>
+        <tr><td>Content-Security-Policy</td><td><span style="color: var(--danger);">FAIL</span></td><td>Missing. High risk of XSS and unauthorized script injection.</td></tr>
+        <tr><td>X-Frame-Options</td><td><span style="color: var(--danger);">FAIL</span></td><td>Missing. Vulnerable to Clickjacking.</td></tr>
+        <tr><td>X-Content-Type-Options</td><td><span style="color: var(--danger);">FAIL</span></td><td>Missing. Risk of MIME-sniffing vulnerabilities.</td></tr>
+        <tr><td>Referrer-Policy</td><td><span style="color: var(--danger);">FAIL</span></td><td>Missing. Information leakage through referrers.</td></tr>
+    </table>
+
+    <h2>4. Habeas Data Compliance (Ley 1581)</h2>
+    <p><strong>Legal Entity:</strong> FLIT SAS (NIT 901698038-3)</p>
+    <table>
+        <tr><th>Criterion</th><th>Status</th><th>Observation</th></tr>
+        <tr><td>Explicit Consent</td><td><span style="color: var(--success);">PASS</span></td><td>Document explicitly mentions "manifesto de manera libre, expresa...".</td></tr>
+        <tr><td>Stated Purpose</td><td><span style="color: var(--success);">PASS</span></td><td>17 specific purposes defined in the policy.</td></tr>
+        <tr><td>Rights of the Subject</td><td><span style="color: var(--success);">PASS</span></td><td>Section 5 lists rights to know, update, and revoke.</td></tr>
+        <tr><td>Minors Protection</td><td><span style="color: var(--success);">PASS</span></td><td>Section 7 specifically addresses treatment of data for minors.</td></tr>
+    </table>
+
+    <h2>5. Execution Logs (Audit Artifacts)</h2>
+    <h3>Browser Console (Errors)</h3>
+    <div class="log-section">
+[ERROR] Failed to load resource: 404 (Not Found) @ flitsas.com.co/.../lato/S6u9w4BMUTPHh6UVSwiPGQ.woff2
+[ERROR] Failed to load resource: 404 (Not Found) @ flitsas.com.co/.../poppins/pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2
+[ERROR] Failed to load resource: 404 (Not Found) @ flitsas.com.co/.../poppins/pxiEyp8kv8JHgFVrJJfecg.woff2
+    </div>
+
+    <h3>Network Response Headers (Target Root)</h3>
+    <div class="log-section">
+alt-svc: h3=":443"; ma=86400
+server: cloudflare
+content-type: text/html; charset=UTF-8
+cf-cache-status: MISS
+x-gateway-cache-status: MISS
+... (Missing Security Headers Detected)
+    </div>
+
+    <div class="footer">
+        Generated by Security Agent v1.0 | Date: 2026-05-14 | Antigravity AI
+    </div>
+</body>
+</html>
