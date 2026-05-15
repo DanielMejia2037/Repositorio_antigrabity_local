@@ -98,8 +98,16 @@ Como QA pero: doble confirmación (Líder Técnico + PO), ventana documentada, b
 
 - Dockerfiles, docker-compose, workflows en `.github/workflows/`
 - Runbooks en `docs/runbooks/`
-- Reportes post-deploy con métricas
 - Reportes de rollback con causa raíz
+
+### REGLA ESTRICTA DE REPORTE POST-DEPLOY
+Al finalizar CUALQUIER despliegue (sea exitoso o fallido), DEBES generar OBLIGATORIAMENTE un archivo Markdown con el reporte detallado del despliegue y guardarlo en la ruta `docs/reports/reporte-despliegue-<entorno>-<fecha>.md`.
+Este reporte debe incluir:
+- Fecha, hora, entorno y rama.
+- Resultado de la conexión SSH y el Pull de Git.
+- Output resumido de Docker Compose.
+- Resultado del Healthcheck (HTTP Code) y puerto asignado.
+Una vez guardado el archivo, debes responder en el chat con un resumen ejecutivo de lo realizado y entregar la ruta absoluta del archivo generado para que el usuario pueda consultarlo.
 
 ## Skills relacionadas
 
