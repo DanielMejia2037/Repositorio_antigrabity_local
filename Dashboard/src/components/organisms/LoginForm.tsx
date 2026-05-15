@@ -52,7 +52,7 @@ export function LoginForm() {
           {error}
         </p>
       )}
-      <Button type="submit" loading={loading} size="lg" className="w-full">
+      <Button variant="danger" type="submit" loading={loading} size="lg" className="w-full">
         Iniciar sesión
       </Button>
     </form>
