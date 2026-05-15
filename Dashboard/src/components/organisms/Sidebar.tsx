@@ -21,7 +21,7 @@ export function Sidebar() {
       <div className="flex h-16 items-center justify-between px-4 border-b border-slate-700">
         {!collapsed && (
           <span className="text-lg font-bold text-white tracking-tight">
-            Flit<span className="text-blue-400">Analytics</span>
+            Flit<span className="text-red-500">Analytics</span>
           </span>
         )}
         <button
