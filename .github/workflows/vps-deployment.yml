@@ -1,0 +1,63 @@
+name: VPS Multi-Env Deployment
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - qa
+
+jobs:
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Environment Variables
+        run: |
+          BRANCH=${GITHUB_REF#refs/heads/}
+          if [[ "$BRANCH" == "master" ]]; then
+            echo "ENV_NAME=pdn" >> $GITHUB_ENV
+            echo "VPS_PATH=/opt/apps/dashboarddm-pdn" >> $GITHUB_ENV
+            echo "OVERRIDE_FILE=docker-compose.pdn.yml" >> $GITHUB_ENV
+          elif [[ "$BRANCH" == "qa" ]]; then
+            echo "ENV_NAME=qa" >> $GITHUB_ENV
+            echo "VPS_PATH=/opt/apps/dashboarddm-qa" >> $GITHUB_ENV
+            echo "OVERRIDE_FILE=docker-compose.qa.yml" >> $GITHUB_ENV
+          else
+            echo "ENV_NAME=dev" >> $GITHUB_ENV
+            echo "VPS_PATH=/opt/apps/dashboarddm-dev" >> $GITHUB_ENV
+            echo "OVERRIDE_FILE=docker-compose.dev.yml" >> $GITHUB_ENV
+          fi
+
+      - name: Executing Remote SSH Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22
+          script: |
+            echo "🚀 Iniciando despliegue en entorno: ${{ env.ENV_NAME }}"
+            mkdir -p ${{ env.VPS_PATH }}
+            cd ${{ env.VPS_PATH }}
+            
+            # Clonar si no existe, actualizar si ya existe
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/DanielMejia2037/Repositorio_antigrabity_local.git .
+            else
+              git fetch origin
+            fi
+            
+            git checkout ${{ env.BRANCH_NAME || github.ref_name }}
+            git reset --hard origin/${{ env.BRANCH_NAME || github.ref_name }}
+            
+            cd Dashboard
+            
+            # Despliegue con Docker Compose usando el nombre de proyecto aislado
+            docker compose -p dashboard_${{ env.ENV_NAME }} -f docker-compose.yml -f ${{ env.OVERRIDE_FILE }} up --build -d
+            
+            echo "✅ Despliegue completado con éxito."
+            docker ps | grep dashboard_${{ env.ENV_NAME }}
