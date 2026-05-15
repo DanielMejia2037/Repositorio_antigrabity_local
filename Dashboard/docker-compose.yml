@@ -8,8 +8,6 @@ services:
     image: dashboard:latest
     container_name: dashboard_app
     restart: unless-stopped
-    ports:
-      - "5000:80"
     environment:
       - TZ=America/Bogota
     healthcheck:
