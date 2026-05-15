@@ -55,7 +55,7 @@ TODA ejecución de despliegue en la VPS debe hacerse usando tu herramienta de co
 
 **Comando de Despliegue Estándar (Reemplazar variables según tabla):**
 ```bash
-ssh -i "C:\Users\Trabajo\.ssh\infra_agent" root@177.7.49.115 "mkdir -p <RUTA_VPS> && cd <RUTA_VPS> && (git clone https://github.com/DanielMejia2037/Repositorio_antigrabity_local.git . 2>/dev/null || true) && cd Dashboard && git fetch && git checkout <RAMA> && git pull origin <RAMA> && docker compose -f docker-compose.yml -f <ARCHIVO_OVERRIDE> up --build -d"
+ssh -i "C:\Users\Trabajo\.ssh\infra_agent" root@177.7.49.115 "mkdir -p <RUTA_VPS> && cd <RUTA_VPS> && (git clone https://github.com/DanielMejia2037/Repositorio_antigrabity_local.git . 2>/dev/null || true) && cd Dashboard && git fetch && git checkout <RAMA> && git pull origin <RAMA> && docker compose -p dashboard_<ENTORNO> -f docker-compose.yml -f <ARCHIVO_OVERRIDE> up --build -d"
 ```
 
 ## Flujo / Modos de operación
