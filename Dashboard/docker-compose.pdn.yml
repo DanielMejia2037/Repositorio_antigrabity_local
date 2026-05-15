@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  dashboard:
+    image: dashboard:pdn
+    container_name: dashboard_app_pdn
+    ports:
+      - "5000:80"

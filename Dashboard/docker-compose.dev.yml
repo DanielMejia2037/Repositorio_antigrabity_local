@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  dashboard:
+    image: dashboard:dev
+    container_name: dashboard_app_dev
+    ports:
+      - "5001:80"

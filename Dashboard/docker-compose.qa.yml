@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  dashboard:
+    image: dashboard:qa
+    container_name: dashboard_app_qa
+    ports:
+      - "5002:80"

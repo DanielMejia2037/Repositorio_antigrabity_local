@@ -1,0 +1,32 @@
+[2026-05-13 15:52:21] ------------------------------------------------
+[2026-05-13 15:52:21] INFRA AGENT: INICIANDO DESPLIEGUE DE PRUEBA
+[2026-05-13 15:52:21] Repositorio: D:\repro_codecommit\BackAuthentication
+[2026-05-13 15:52:21] Rama actual detectada: deploy/dev-error-test
+[2026-05-13 15:52:21] PASO 1: Ejecutando 'docker build' para validar configuración...
+[2026-05-13 15:52:21] RESULTADO: Construcción exitosa. Procediendo con el despliegue...
+[2026-05-13 15:52:21] ESTADO FINAL: DESPLIEGUE COMPLETADO.
+[2026-05-13 15:52:21] ------------------------------------------------
+[2026-05-13 15:53:33] ------------------------------------------------
+[2026-05-13 15:53:33] INFRA AGENT: INICIANDO DESPLIEGUE DE PRUEBA (SIMULACION)
+[2026-05-13 15:53:33] Repositorio: D:\repro_codecommit\BackAuthentication
+[2026-05-13 15:53:33] Rama actual: deploy/dev-error-test
+[2026-05-13 15:53:33] PASO 1: Intentando construccion Docker (Mocked for simulation)...
+[2026-05-13 15:53:34] Dockerfile detectado. Analizando contenido...
+[2026-05-13 15:53:34] Deteccion: Se encontro un comando de fallo intencional en el Dockerfile.
+[2026-05-13 15:53:34] RESULTADO: Fallo en la construccion Docker (Simulado).
+[2026-05-13 15:53:34] PASO 2: Iniciando ROLLBACK automatico a la rama 'develop'...
+[2026-05-13 15:53:34] ROLLBACK: Completado con exito. Repositorio restaurado.
+[2026-05-13 15:53:34] ESTADO FINAL: FALLIDO / ROLLBACK OK.
+[2026-05-13 15:53:34] ------------------------------------------------
+[2026-05-14 10:24:45] ------------------------------------------------
+[2026-05-14 10:24:45] INFRA AGENT: INICIANDO DESPLIEGUE DE PRUEBA (SIMULACION)
+[2026-05-14 10:24:45] Repositorio: D:\repro_codecommit\BackAuthentication
+[2026-05-14 10:24:45] Rama actual: deploy/dev-error-test
+[2026-05-14 10:24:45] PASO 1: Intentando construccion Docker (Mocked for simulation)...
+[2026-05-14 10:24:45] Dockerfile detectado. Analizando contenido...
+[2026-05-14 10:24:45] Deteccion: Se encontro un comando de fallo intencional en el Dockerfile.
+[2026-05-14 10:24:45] RESULTADO: Fallo en la construccion Docker (Simulado).
+[2026-05-14 10:24:45] PASO 2: Iniciando ROLLBACK automatico a la rama 'develop'...
+[2026-05-14 10:24:45] ROLLBACK: Completado con exito. Repositorio restaurado.
+[2026-05-14 10:24:45] ESTADO FINAL: FALLIDO / ROLLBACK OK.
+[2026-05-14 10:24:45] ------------------------------------------------
