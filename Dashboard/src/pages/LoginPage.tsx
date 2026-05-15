@@ -14,7 +14,7 @@ export function LoginPage() {
           {/* Logo */}
           <div className="mb-8 text-center">
             <span className="text-3xl font-bold text-white tracking-tight">
-              Flit<span className="text-red-500">Analytics</span>
+              Flit<span className="text-blue-400">Analytics</span>
             </span>
             <p className="mt-2 text-sm text-slate-400">
               Ingresa tus credenciales para continuar

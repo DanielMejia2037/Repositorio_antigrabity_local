@@ -104,7 +104,6 @@ Como QA pero: doble confirmación (Líder Técnico + PO), ventana documentada, b
 Al finalizar CUALQUIER despliegue (sea exitoso o fallido), DEBES generar OBLIGATORIAMENTE un archivo Markdown con el reporte detallado del despliegue y guardarlo en la ruta `docs/reports/reporte-despliegue-<entorno>-<fecha>.md`.
 Este reporte debe incluir:
 - Fecha, hora, entorno y rama.
-- **Auditoría de Aprobaciones:** Una sección estricta que documente quién aprobó el despliegue (ej. Líder Técnico, PO) y mediante qué instrucción exacta, o si hubo alguna omisión (bypass) a las reglas de aprobación del entorno. ESTA SECCIÓN DEBE IR ANTES DE CUALQUIER LOG TÉCNICO.
 - Resultado de la conexión SSH y el Pull de Git.
 - Output resumido de Docker Compose.
 - Resultado del Healthcheck (HTTP Code) y puerto asignado.
