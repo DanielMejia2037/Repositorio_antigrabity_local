@@ -33,31 +33,36 @@ jobs:
           fi
 
       - name: Executing Remote SSH Commands
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22
+          debug: true
           script: |
+            set -e
             echo "🚀 Iniciando despliegue en entorno: ${{ env.ENV_NAME }}"
+            echo "Target Path: ${{ env.VPS_PATH }}"
+            
             mkdir -p ${{ env.VPS_PATH }}
             cd ${{ env.VPS_PATH }}
             
-            # Clonar si no existe, actualizar si ya existe
+            # Inicializar repo si está vacío
             if [ ! -d ".git" ]; then
+              echo "Clonando repositorio..."
               git clone https://github.com/DanielMejia2037/Repositorio_antigrabity_local.git .
-            else
-              git fetch origin
             fi
             
-            git checkout ${{ env.BRANCH_NAME || github.ref_name }}
-            git reset --hard origin/${{ env.BRANCH_NAME || github.ref_name }}
+            echo "Sincronizando con origin..."
+            git fetch origin
+            git checkout ${{ github.ref_name }}
+            git reset --hard origin/${{ github.ref_name }}
             
             cd Dashboard
             
-            # Despliegue con Docker Compose usando el nombre de proyecto aislado
+            echo "Levantando contenedores..."
             docker compose -p dashboard_${{ env.ENV_NAME }} -f docker-compose.yml -f ${{ env.OVERRIDE_FILE }} up --build -d
             
             echo "✅ Despliegue completado con éxito."
-            docker ps | grep dashboard_${{ env.ENV_NAME }}
+            docker ps --filter name=dashboard_${{ env.ENV_NAME }}
